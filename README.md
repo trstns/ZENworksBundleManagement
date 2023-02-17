@@ -1,7 +1,7 @@
 # ZENworksBundleManagement
 A module to create and assign ZENworks bundles.  
 
-This module relies on the (ZenworksZMAN)[https://www.powershellgallery.com/packages/ZenworksZMAN/] module which simplifies running ZMAN commands in PowerShell.
+This module relies on the [ZenworksZMAN](https://www.powershellgallery.com/packages/ZenworksZMAN/) module which simplifies running ZMAN commands in PowerShell.
 
 ## How to use 
 Drop the root folder in your PSModulePath, remove the branch name (ex. main )from the folder, and PowerShell should find the module.
@@ -135,3 +135,17 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **ProcessName** The name of the process to stop.
 
+## Examples
+
+### Create a new bundle to install an MSI file on 64bit windows
+```PowerShell
+New-ZENworksBundle -Credential $ZenCredentials -Name "Install Application" -Path "Installs" -Requirements (
+    New-ZENworksBundleRequirements -Groups (
+        (New-ZENworksBundleRequirementsGroup -Filters (
+            (New-ZENworksBundleRequirementsFilter -Type 'ArchitectureReq' -Operator 'Equals' -Value '64')
+        ))
+    )
+) -Actions (
+    (New-ZENworksBundleInstallMSIAction -Name "Install Application MSI" -Section "Install" -FileName "C:\Application.msi")
+)
+```
