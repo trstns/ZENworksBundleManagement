@@ -3,8 +3,8 @@
         Deletes a file from client workstations.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -15,7 +15,7 @@
 
         Defaults to false.
     .EXAMPLE
-        PS C:\>New-ZENworksBundleFileRemovalAction -Name "Delete File" -Section "Install" -FileName "C:\Config.json"
+        PS C:\>New-ZENworksBundleFileRemovalAction -Name "Delete File" -ActionSet "Install" -FileName "C:\Config.json"
 
         This example deletes the file C:\Config.json from client workstations.
 
@@ -24,7 +24,7 @@
 class FileRemovalAction {
     [string]$Type = 'File Removal Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string[]]$Files
 }
@@ -42,7 +42,7 @@ function New-ZENworksBundleFileRemovalAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -60,7 +60,7 @@ function New-ZENworksBundleFileRemovalAction
     {
         $BundleAction = New-Object FileRemovalAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'File Removal Action'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.Files = $Files

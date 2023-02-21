@@ -3,8 +3,8 @@
         Create a service to start or stop a Windows service.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -19,7 +19,7 @@
 
         This can either be Start or Stop
     .EXAMPLE
-        PS C:\>New-ZENworksBundleServiceAction -Name "Stop spooler service" -Section "Install" -ServiceName "spooler" -Action "Stop"
+        PS C:\>New-ZENworksBundleServiceAction -Name "Stop spooler service" -ActionSet "Install" -ServiceName "spooler" -Action "Stop"
 
         This example stops the spooler service on the client workstation.
 
@@ -28,7 +28,7 @@
 class ServiceAction {
     [string]$Type = 'Service Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string]$ServiceName
     [string]$Action
@@ -47,7 +47,7 @@ function New-ZENworksBundleServiceAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -71,7 +71,7 @@ function New-ZENworksBundleServiceAction
     {
         $BundleAction = New-Object ServiceAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'Service Action'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.ServiceName = $ServiceName

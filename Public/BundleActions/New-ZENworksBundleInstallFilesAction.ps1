@@ -3,8 +3,8 @@
         Creates an action object to install an file.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -32,7 +32,7 @@
         Choose from CopyAlways, CopyIfExists, CopyIfDoesNotExist, CopyIfNewer, CopyIfNewerAndExists, CopyIfNewerVersion, CopyIfDifferent
         Defaults to CopyAlways
     .EXAMPLE
-        PS C:\>New-ZENworksBundleInstallFilesAction -Name "Install Config File" -Section "Install" -FileName "C:\Config.json" -DestinationDirectory "C:\Program Files\Software\" -DestinationFileName "Config.json"
+        PS C:\>New-ZENworksBundleInstallFilesAction -Name "Install Config File" -ActionSet "Install" -FileName "C:\Config.json" -DestinationDirectory "C:\Program Files\Software\" -DestinationFileName "Config.json"
 
         This example creates an action which will install C:\Config.json in C:\Program Files\Software on client workstations.
 
@@ -41,7 +41,7 @@
 class InstallFilesAction {
     [string]$Type = 'Install Files Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string]$FileName
     [boolean]$IncludeAllFilesinFolder
@@ -64,7 +64,7 @@ function New-ZENworksBundleInstallFilesAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -102,7 +102,7 @@ function New-ZENworksBundleInstallFilesAction
     {
         $BundleAction = New-Object InstallFilesAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'Install Files Action'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.FileName = $FileName

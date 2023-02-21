@@ -3,8 +3,8 @@
         Creates an action to insert or edit registry entries.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -35,7 +35,7 @@
         Support values are 'DefaultUser' and 'CurrentUser'
         The default value is 'DefaultUser'
     .EXAMPLE
-        New-ZENworksBundleRegistryEditAction -Section "Install" -Name "Edit the registry"  -RegistryEntries @(
+        New-ZENworksBundleRegistryEditAction -ActionSet "Install" -Name "Edit the registry"  -RegistryEntries @(
             @("HKEY_CURRENT_USER\SOFTWARE\TeamViewer\MultiMedia","RemoteAudioReceiveEnabled","DWord",1),
             @("HKEY_CURRENT_USER\SOFTWARE\TeamViewer\MultiMedia","OtherValue","DWord",2),
             @("HKEY_CURRENT_USER\SOFTWARE\TeamViewer\InteractionDefaults","Interaction1","DWord",1),
@@ -51,7 +51,7 @@
 class RegistryEditAction {
     [string]$Type = 'Registry Edit Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [array[]]$RegistryEntries
     [string]$HKCUOption
@@ -70,7 +70,7 @@ function New-ZENworksBundleRegistryEditAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -94,7 +94,7 @@ function New-ZENworksBundleRegistryEditAction
     {
         $BundleAction = New-Object RegistryEditAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.RegistryEntries = $RegistryEntries
         $BundleAction.HKCUOption = $HKCUOption

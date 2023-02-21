@@ -277,7 +277,7 @@ function New-ZENworksBundleXml
 
         foreach ($Action in $Actions) {
             Write-Verbose "Processing Action: $($Action.Name)"
-            $ActionSet = $bundleXML.Bundle.ActionSets | Where-Object -Property "Type" -eq $Action.Section
+            $ActionSet = $bundleXML.Bundle.ActionSets | Where-Object -Property "Type" -eq $Action.ActionSet
             $actionElement = $bundleXML.CreateElement("Actions",$ActionSet.NamespaceURI)
             #$actionElement.InnerXml = New-ZENworksBundleActionXml -Action $Action
 

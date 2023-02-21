@@ -3,8 +3,8 @@
         Install another ZENworks bundle.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -15,7 +15,7 @@
 
         Defaults to false.
     .EXAMPLE
-        PS C:\>New-ZENworksBundleInstallBundleAction -Name "Install Bundle" -Section "Install" -BundlePath "Installs/Install Software"
+        PS C:\>New-ZENworksBundleInstallBundleAction -Name "Install Bundle" -ActionSet "Install" -BundlePath "Installs/Install Software"
 
         This example installs the bundle /Bundles/Installs/Install Software.
 
@@ -24,7 +24,7 @@
 class InstallBundleAction {
     [string]$Type = 'InstallBundle'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string]$BundlePath
 }
@@ -42,7 +42,7 @@ function New-ZENworksBundleInstallBundleAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -65,7 +65,7 @@ function New-ZENworksBundleInstallBundleAction
 
         $BundleAction = New-Object InstallBundleAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'InstallBundle'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.BundlePath = $CleanBundlePath

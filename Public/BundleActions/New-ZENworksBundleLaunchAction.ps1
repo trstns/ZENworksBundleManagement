@@ -3,8 +3,8 @@
         Install another ZENworks bundle.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -30,7 +30,7 @@
     .PARAMETER SuccessReturnCodes
         A comma separated list of return codes that indicate the command was successful.
     .EXAMPLE
-        PS C:\>New-ZENworksBundleLaunchAction -Name "Launch Notepad" -Section "Launch" -Command "C:\Windows\notepad.exe" -Impersonate "USER" -WaitForExit $false
+        PS C:\>New-ZENworksBundleLaunchAction -Name "Launch Notepad" -ActionSet "Launch" -Command "C:\Windows\notepad.exe" -Impersonate "USER" -WaitForExit $false
 
         This example launches notepad on the client workstation.
 
@@ -39,7 +39,7 @@
 class LaunchAction {
     [string]$Type = 'Launch Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string]$Command
     [string]$Impersonate
@@ -63,7 +63,7 @@ function New-ZENworksBundleLaunchAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -106,7 +106,7 @@ function New-ZENworksBundleLaunchAction
     {
         $BundleAction = New-Object LaunchAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'Launch Action'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.Command = $Command

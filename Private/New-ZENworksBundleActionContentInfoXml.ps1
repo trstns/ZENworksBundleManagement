@@ -36,16 +36,16 @@ function New-ZENworksBundleActionContentInfoXml
     {
       $ActionContentInfoXml = [xml] $script:ZENworksBundleActionContentInfoXML
 
-      foreach ($Section in ("Distribute","Install","Launch")) { 
-        $ActionSet = $Actions | Where-Object -Property "Section" -EQ $Section
+      foreach ($ActionSet in ("Distribute","Install","Launch")) { 
+        $ActionSet = $Actions | Where-Object -Property "ActionSet" -EQ $ActionSet
         foreach ($Action in $ActionSet) {
             Write-Verbose "Processing Action Content: $($Action.Name)"
             if ($Action.Type -in $script:ValidActions) {
-                if ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $Section}) {
-                    $actionSetElement = ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $Section}).ActionSet
+                if ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}) {
+                    $actionSetElement = ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}).ActionSet
                 } else {
                     $actionSetElement = $ActionContentInfoXml.CreateElement("ActionSet")
-                    $actionSetElement.SetAttribute("type",$Section)
+                    $actionSetElement.SetAttribute("type",$ActionSet)
                     [void]$ActionContentInfoXml.SelectSingleNode("ActionInformation").AppendChild($actionSetElement)
                 }
                 $ActionElement = $ActionContentInfoXml.CreateElement("Action")

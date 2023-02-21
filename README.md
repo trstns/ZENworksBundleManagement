@@ -64,19 +64,19 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 ### New-ZENworksBundleFileRemovalAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **Files** An array of files (including full path) that should be removed from the target computer.
 
 ### New-ZENworksBundleInstallBundleAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **BundlePath** The name (including path) of the bundle to install.
 
 ### New-ZENworksBundleInstallExecutableAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **FileName** The full path of the file which will be imported into ZCM.
 * **Impersonate** Which user should be used to execute this file.  Valid options are 'SYSTEM' and 'USER'.  Defaults to 'SYSTEM'.
@@ -88,7 +88,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 ### New-ZENworksBundleInstallFilesAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **FileName** The full path of the file which will be imported into ZCM.
 * **IncludeAllFilesinFolder** When importing the executable into ZENworks, also import all files in the same folder. Defaults to false.
@@ -99,7 +99,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 ### New-ZENworksBundleInstallMSIAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **FileName** The full path of the file which will be imported into ZCM.
 * **InstallParameters** Parameters to pass to the installer.
@@ -108,7 +108,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 ### New-ZENworksBundleLaunchAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **Command** The command to run on the target computer.
 * **Impersonate** Which user should be used to execute this file.  Valid options are 'SYSTEM' and 'USER'.  Defaults to 'SYSTEM'.
@@ -119,21 +119,21 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 ### New-ZENworksBundleRegistryEditAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **RegistryEntries** An array of registry values to create or modify.
 * **HKCUOption** Specify whether values in the HKCU hive should be written to the Default User or the Current user. Valid values are 'DefaultUser' and 'CurrentUser'.  Defaults to 'DefaultUser'.
 
 ### New-ZENworksBundleServiceAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **ServiceName** The name of the service to start or stop.
 * **Action** The action to perform on the service. Valid values are 'Start' and 'Stop'.
 
 ### New-ZENworksBundleStopProcessAction
 * **Name** The name of the action.
-* **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
+* **ActionSet** The action set to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **ProcessName** The name of the process to stop.
 
@@ -155,6 +155,6 @@ New-ZENworksBundle -Credential $ZenCredentials -Name "Install Application" -Path
         ))
     )
 ) -Actions (
-    (New-ZENworksBundleInstallMSIAction -Name "Install Application MSI" -Section "Install" -FileName "C:\Application.msi")
+    (New-ZENworksBundleInstallMSIAction -Name "Install Application MSI" -ActionSet "Install" -FileName "C:\Application.msi")
 )
 ```

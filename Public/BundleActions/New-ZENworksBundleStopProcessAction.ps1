@@ -3,8 +3,8 @@
         Create an action to stop a Windows process.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
         Defaults to Install
@@ -15,7 +15,7 @@
     .PARAMETER ProcessName
         The name of the process to stop.
     .EXAMPLE
-        PS C:\>New-ZENworksBundleStopProcessAction -Name "Stop firefox service" -Section "Install" -ProcessName "firefox" -Action "Stop"
+        PS C:\>New-ZENworksBundleStopProcessAction -Name "Stop firefox service" -ActionSet "Install" -ProcessName "firefox" -Action "Stop"
 
         This example stops the firefox process on the client workstation.
 
@@ -23,7 +23,7 @@
 class StopProcessAction {
     [string]$Type = 'Stop Process Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string]$ProcessName
 }
@@ -41,7 +41,7 @@ function New-ZENworksBundleStopProcessAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -60,7 +60,7 @@ function New-ZENworksBundleStopProcessAction
     {
         $BundleAction = New-Object StopProcessAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'Stop Process Action'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.ProcessName = $ProcessName

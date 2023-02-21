@@ -31,7 +31,7 @@
         )
     
         $Actions = (
-            New-ZENworksBundleAction -Section "Launch" -Name "Install Mozilla Firefox ESR Bundle" -Type 'InstallBundle' -BundlePath "/Installs/Automated/Mozilla Firefox ESR - Install"
+            New-ZENworksBundleAction -ActionSet "Launch" -Name "Install Mozilla Firefox ESR Bundle" -Type 'InstallBundle' -BundlePath "/Installs/Automated/Mozilla Firefox ESR - Install"
         )
 
         New-ZENworksBundle -Name "Mozilla Firefox ESR - Update" -Path "Installs/Automated" -Description "" -Actions $Actions -Requirements $Requirements

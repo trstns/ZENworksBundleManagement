@@ -3,8 +3,8 @@
         Creates an action object to install an MSI.
     .PARAMETER Name
         Name of the action.
-    .PARAMETER Section
-        The actions section to place this action.
+    .PARAMETER ActionSet
+        The action set to place this action.
 
         Currently only Install and Launch are supported.
     .PARAMETER FileName
@@ -24,7 +24,7 @@
 
         Defaults to false.
     .EXAMPLE
-        PS C:\>New-ZENworksBundleInstallMSIAction -Name "Install MSI" -Section "Install" -FileName "C:\MSItoInstall.msi"
+        PS C:\>New-ZENworksBundleInstallMSIAction -Name "Install MSI" -ActionSet "Install" -FileName "C:\MSItoInstall.msi"
 
         This example creates an action which will install C:\MSItoInstall.msi onto client workstations.
 
@@ -33,7 +33,7 @@
 class InstallMSIAction {
     [string]$Type = 'Install MSI Action'
     [string]$Name
-    [string]$Section
+    [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
     [string]$FileName
     [string]$InstallParameters
@@ -54,7 +54,7 @@ function New-ZENworksBundleInstallMSIAction
         [Parameter()]
         [ValidateSet('Install','Launch')]
         [System.String]
-        $Section = "Install",
+        $ActionSet = "Install",
 
         [Parameter()]
         [System.Boolean]
@@ -82,7 +82,7 @@ function New-ZENworksBundleInstallMSIAction
     {
         $BundleAction = New-Object InstallMSIAction
         $BundleAction.Name = $Name
-        $BundleAction.Section = $Section
+        $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = "Install MSI Action"
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.FileName = $FileName
