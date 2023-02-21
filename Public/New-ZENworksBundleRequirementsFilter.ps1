@@ -89,7 +89,7 @@ function New-ZENworksBundleRequirementsFilter
         [ValidateSet('ArchitectureReq', 'RegValueReq', 'ProcessRunningReq', 'FileExistsReq')]
         [System.String]$Type,
 
-        [ValidateSet('Equals')]
+        [ValidateSet('Equals', 'NotEquals', 'true', 'false', 'GreaterEquals', 'LessEquals')]
         [System.String]
         $Operator,
 
