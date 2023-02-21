@@ -21,6 +21,8 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **New-ZENworksBundleRegistryEditAction** Create an action to create or update registry values on target devices.
 * **New-ZENworksBundleServiceAction** Create an action to start or stop a service on target devices.
 * **New-ZENworksBundleStopProcessAction** Create an action to stop a running process on target devices.
+* **Remove-ZENworksBundleAction** Remove one or more bundle actions from an existing bundle.
+
 
 ### New-ZENworksBundle
 * **Name** The name of the bundle.
@@ -134,6 +136,13 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **Section** The section to place this action.  Valid options are 'Install' or 'Launch'.
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **ProcessName** The name of the process to stop.
+
+### Remove-ZENworksBundleAction
+* **BundleName**: The name of the bundle we are assigning to devices.
+* **BundlePath**: The path of the bundle.
+* **ActionSet**: The action set containing the action(s) to remove.
+* **ActionPositions**: The positions of the action(s) to remove.
+* **Credential**: Credentials to authenticate with ZENworks as an administrator.
 
 ## Examples
 
