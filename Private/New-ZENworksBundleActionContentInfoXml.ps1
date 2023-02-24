@@ -37,8 +37,8 @@ function New-ZENworksBundleActionContentInfoXml
       $ActionContentInfoXml = [xml] $script:ZENworksBundleActionContentInfoXML
 
       foreach ($ActionSet in ("Distribute","Install","Launch")) { 
-        $ActionSet = $Actions | Where-Object -Property "ActionSet" -EQ $ActionSet
-        foreach ($Action in $ActionSet) {
+        $ActionSetActions = $Actions | Where-Object -Property "ActionSet" -EQ $ActionSet
+        foreach ($Action in $ActionSetActions) {
             Write-Verbose "Processing Action Content: $($Action.Name)"
             if ($Action.Type -in $script:ValidActions) {
                 if ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}) {
@@ -51,10 +51,10 @@ function New-ZENworksBundleActionContentInfoXml
                 $ActionElement = $ActionContentInfoXml.CreateElement("Action")
                 $ActionElement.SetAttribute("name",$Action.Name)
                 $ActionElement.SetAttribute("type",$Action.Type)
-                if (($ActionSet | Measure-Object).Count -eq 1){
+                if (($ActionSetActions | Measure-Object).Count -eq 1){
                     $ActionIndex = 1
                 } else {
-                    $ActionIndex = $ActionSet.IndexOf($Action) + 1
+                    $ActionIndex = $ActionSetActions.IndexOf($Action) + 1
                 }
                 $ActionElement.SetAttribute("index",$ActionIndex)
                 [void]$actionSetElement.AppendChild($ActionElement)
@@ -73,7 +73,9 @@ function New-ZENworksBundleActionContentInfoXml
                 } elseif ($Action.Type -in ('InstallBundle')) {
                     # Make sure that the bundle path starts with /Bundles/
                     $BundlePath = $Action.BundlePath -Replace "^[\/]?(Bundles)?[\/]?","/Bundles/" 
-                    $DependentBundlePathElement = $ActionContentInfoXml.CreateElement("DependentBundlePath")
+                    $DependentBundlePathElement = $ActionElement.AppendChild(
+                        $ActionContentInfoXml.CreateElement("DependentBundlePath")
+                    )
                     [void]$DependentBundlePathElement.AppendChild($ActionContentInfoXml.CreateTextNode($BundlePath))
                 }
 
