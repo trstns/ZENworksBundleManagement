@@ -44,52 +44,49 @@ function New-ZENworksBundleActionContentInfoXml
                 if ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}) {
                     $actionSetElement = ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}).ActionSet
                 } else {
-                    $actionSetElement = $ActionContentInfoXml.CreateElement("ActionSet")
-                    $actionSetElement.SetAttribute("type",$ActionSet)
+                    $actionSetElement = New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "ActionSet" -Attributes @{"type"=$ActionSet}
                     [void]$ActionContentInfoXml.SelectSingleNode("ActionInformation").AppendChild($actionSetElement)
                 }
-                $ActionElement = $ActionContentInfoXml.CreateElement("Action")
-                $ActionElement.SetAttribute("name",$Action.Name)
-                $ActionElement.SetAttribute("type",$Action.Type)
                 if (($ActionSetActions | Measure-Object).Count -eq 1){
                     $ActionIndex = 1
                 } else {
                     $ActionIndex = $ActionSetActions.IndexOf($Action) + 1
                 }
-                $ActionElement.SetAttribute("index",$ActionIndex)
-                [void]$actionSetElement.AppendChild($ActionElement)
+
+                $ActionAttributes = @{
+                    "name" = $Action.Name
+                    "type" = $Action.Type
+                    "index" = $ActionIndex
+                }
+                $ActionElement = New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "Action" -Attributes $ActionAttributes -Parent $actionSetElement
 
                 if ($Action.Type -in ('Install MSI Action', 'Install Directory Action', 'Install Executable')) {
-                    $ContentElement = $ActionContentInfoXml.CreateElement("Content")
-                    [void]$ActionElement.AppendChild($ContentElement)
-                    $ContentFilePathElement = $ActionContentInfoXml.CreateElement("ContentFilePath")
-                    $ContentFilePathElement.SetAttribute("includeAllFilesinFolder",$Action.IncludeAllFilesinFolder.ToString().ToLower())
-                    $ContentFilePathElement.SetAttribute("includeAllFilesinSubFolders",$Action.IncludeAllFilesinSubFolders.ToString().ToLower())
-                    if ($Action.Type -in ('Install Executable')) {
-                        $ContentFilePathElement.SetAttribute("contentPackageType","3")
+                    $ContentFilePathAttributes = @{
+                        "includeAllFilesinFolder" = $Action.IncludeAllFilesinFolder.ToString().ToLower()
+                        "includeAllFilesinSubFolders" = $Action.IncludeAllFilesinSubFolders.ToString().ToLower()
                     }
-                    $ContentFilePathElement.InnerText = $Action.FileName
-                    [void]$ContentElement.AppendChild($ContentFilePathElement)
+                    if ($Action.Type -in ('Install Executable')) {
+                        $ContentFilePathAttributes.Add("contentPackageType","3")
+                    }
+                    $null = New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "Content" -Parent $ActionElement -Children (
+                        (New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "ContentFilePath" -Parent $ActionElement -Attributes $ContentFilePathAttributes -TextContent $Action.FileName)
+                    )
                 } elseif ($Action.Type -in ('Install Files Action')) {
                     foreach ($File in $Action.Files) {
-                        $ContentElement = $ActionContentInfoXml.CreateElement("Content")
-                        [void]$ActionElement.AppendChild($ContentElement)
-                        $ContentFilePathElement = $ActionContentInfoXml.CreateElement("ContentFilePath")
-                        $ContentFilePathElement.SetAttribute("includeAllFilesinFolder","false")
-                        $ContentFilePathElement.SetAttribute("includeAllFilesinSubFolders","false")
-                        $ContentFilePathElement.SetAttribute("contentPackageType","3")
-                        $ContentFilePathElement.InnerText = $File
-                        [void]$ContentElement.AppendChild($ContentFilePathElement)    
+                        $ContentFilePathAttributes = @{
+                            "includeAllFilesinFolder" = "false"
+                            "includeAllFilesinSubFolders" = "false"
+                            "contentPackageType" = "3"
+                        }
+                        $null = New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "Content" -Parent $ActionElement -Children (
+                            (New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "ContentFilePath" -Parent $ActionElement -Attributes $ContentFilePathAttributes -TextContent $File)
+                        )    
                     }
                 } elseif ($Action.Type -in ('InstallBundle')) {
                     # Make sure that the bundle path starts with /Bundles/
                     $BundlePath = $Action.BundlePath -Replace "^[\/]?(Bundles)?[\/]?","/Bundles/" 
-                    $DependentBundlePathElement = $ActionElement.AppendChild(
-                        $ActionContentInfoXml.CreateElement("DependentBundlePath")
-                    )
-                    [void]$DependentBundlePathElement.AppendChild($ActionContentInfoXml.CreateTextNode($BundlePath))
+                    $null = New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "DependentBundlePath" -Parent $ActionElement -TextContent $BundlePath
                 }
-
             }
           }
     
