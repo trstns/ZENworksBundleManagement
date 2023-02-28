@@ -3,6 +3,8 @@ A module to create and assign ZENworks bundles.
 
 This module relies on the [ZenworksZMAN](https://www.powershellgallery.com/packages/ZenworksZMAN/) module which simplifies running ZMAN commands in PowerShell.
 
+This module should be run with administrative privileges as ZMAN requires it for some functions (for example when importing files). 
+
 ## How to use 
 Drop the root folder in your PSModulePath, remove the branch name (ex. main )from the folder, and PowerShell should find the module.
 
