@@ -43,11 +43,11 @@ class InstallFilesAction {
     [string]$Name
     [string]$ActionSet
     [boolean]$ContinueOnFailure = $false
-    [string]$FileName
-    [boolean]$IncludeAllFilesinFolder
-    [boolean]$IncludeAllFilesinSubFolders
+    [string[]]$Files
+    #[boolean]$IncludeAllFilesinFolder
+    #[boolean]$IncludeAllFilesinSubFolders
     [string]$DestinationDirectory
-    [string]$DestinationFileName
+    #[string]$DestinationFileName
     [string]$CopyOption
 }
 
@@ -71,22 +71,22 @@ function New-ZENworksBundleInstallFilesAction
         $ContinueOnFailure = $false,
 
         [Parameter(Mandatory = $true)]
-        [System.String]
-        $FileName,
+        [System.String[]]
+        $Files,
 
-        [System.Boolean]
-        $IncludeAllFilesinFolder = $false,
+        #[System.Boolean]
+        #$IncludeAllFilesinFolder = $false,
 
-        [System.Boolean]
-        $IncludeAllFilesinSubFolders = $false,
+        #[System.Boolean]
+        #$IncludeAllFilesinSubFolders = $false,
 
         [Parameter(Mandatory = $true)]
         [System.String]
         $DestinationDirectory,
 
-        [Parameter(Mandatory = $true)]
-        [System.String]
-        $DestinationFileName,
+        #[Parameter(Mandatory = $true)]
+        #[System.String]
+        #$DestinationFileName,
 
         [ValidateSet('CopyAlways','CopyIfExists','CopyIfDoesNotExist','CopyIfNewer','CopyIfNewerAndExists','CopyIfNewerVersion','CopyIfDifferent')]
         [System.String]
@@ -105,11 +105,11 @@ function New-ZENworksBundleInstallFilesAction
         $BundleAction.ActionSet = $ActionSet
         $BundleAction.Type = 'Install Files Action'
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
-        $BundleAction.FileName = $FileName
-        $BundleAction.IncludeAllFilesinFolder = $IncludeAllFilesinFolder
-        $BundleAction.IncludeAllFilesinSubFolders = $IncludeAllFilesinSubFolders
+        $BundleAction.Files = $Files
+        #$BundleAction.IncludeAllFilesinFolder = $IncludeAllFilesinFolder
+        #$BundleAction.IncludeAllFilesinSubFolders = $IncludeAllFilesinSubFolders
         $BundleAction.DestinationDirectory = $DestinationDirectory
-        $BundleAction.DestinationFileName = $DestinationFileName
+        #$BundleAction.DestinationFileName = $DestinationFileName
         $BundleAction.CopyOption = $CopyOption
 
         return $BundleAction

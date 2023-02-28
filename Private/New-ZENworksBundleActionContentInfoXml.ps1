@@ -59,17 +59,28 @@ function New-ZENworksBundleActionContentInfoXml
                 $ActionElement.SetAttribute("index",$ActionIndex)
                 [void]$actionSetElement.AppendChild($ActionElement)
 
-                if ($Action.Type -in ('Install MSI Action', 'Install Files Action', 'Install Directory Action', 'Install Executable')) {
+                if ($Action.Type -in ('Install MSI Action', 'Install Directory Action', 'Install Executable')) {
                     $ContentElement = $ActionContentInfoXml.CreateElement("Content")
                     [void]$ActionElement.AppendChild($ContentElement)
                     $ContentFilePathElement = $ActionContentInfoXml.CreateElement("ContentFilePath")
                     $ContentFilePathElement.SetAttribute("includeAllFilesinFolder",$Action.IncludeAllFilesinFolder.ToString().ToLower())
                     $ContentFilePathElement.SetAttribute("includeAllFilesinSubFolders",$Action.IncludeAllFilesinSubFolders.ToString().ToLower())
-                    if ($Action.Type -in ('Install Files Action', 'Install Executable')) {
+                    if ($Action.Type -in ('Install Executable')) {
                         $ContentFilePathElement.SetAttribute("contentPackageType","3")
                     }
                     $ContentFilePathElement.InnerText = $Action.FileName
                     [void]$ContentElement.AppendChild($ContentFilePathElement)
+                } elseif ($Action.Type -in ('Install Files Action')) {
+                    foreach ($File in $Action.Files) {
+                        $ContentElement = $ActionContentInfoXml.CreateElement("Content")
+                        [void]$ActionElement.AppendChild($ContentElement)
+                        $ContentFilePathElement = $ActionContentInfoXml.CreateElement("ContentFilePath")
+                        $ContentFilePathElement.SetAttribute("includeAllFilesinFolder","false")
+                        $ContentFilePathElement.SetAttribute("includeAllFilesinSubFolders","false")
+                        $ContentFilePathElement.SetAttribute("contentPackageType","3")
+                        $ContentFilePathElement.InnerText = $File
+                        [void]$ContentElement.AppendChild($ContentFilePathElement)    
+                    }
                 } elseif ($Action.Type -in ('InstallBundle')) {
                     # Make sure that the bundle path starts with /Bundles/
                     $BundlePath = $Action.BundlePath -Replace "^[\/]?(Bundles)?[\/]?","/Bundles/" 
