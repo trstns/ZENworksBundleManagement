@@ -83,39 +83,3 @@ function New-XMLNode
     # Return the new XML element
     $NewElement
 }
-
-
-
-<#
-$XML = @"
-<?xml version="1.0" encoding="UTF-8"?>
-<ActionInformation>
-</ActionInformation>
-"@
-
-$XML = [xml] $XML
-
-#[xml]$XML.ActionInformation | New-XMLNode -DocumentRoot $XML -Name "TestElement" 
-
-#$XML.ActionInformation.AppendChild((New-XMLNode -DocumentRoot $XML -Name "TestElement"))
-
-
-$NewNode = New-XMLNode -DocumentRoot $XML -Name "ActionSet" -Parent $XML.SelectSingleNode("ActionInformation") -Attributes @{"type"="Install"} -Children (
-    (New-XMLNode -DocumentRoot $XML -Name "Action" -Attributes @{"name"="ActionName";"index"=1} -Children (
-        (New-XMLNode -DocumentRoot $XML -Name "Content" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
-            New-XMLNode -DocumentRoot $XML -Name "ContentFilePath" -TextContent "C:\somefile.exe"
-        )),
-        (New-XMLNode -DocumentRoot $XML -Name "Content" -Children (
-            New-XMLNode -DocumentRoot $XML -Name "ContentFilePath" -TextContent "D:\notreallyafile.exe"
-        ))
-    ))
-)
-
-#$NewNode.AppendChild((New-XMLNode -DocumentRoot $XML -Name "otherinfo" -TextContent "something"))
-New-XMLNode -DocumentRoot $XML -Name "otherinfo" -Parent $NewNode 
-#[void]$XML.SelectSingleNode("ActionInformation").AppendChild($NewNode)
-
-
-$XML.OuterXml
-
-#>
