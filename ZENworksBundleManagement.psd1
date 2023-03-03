@@ -11,7 +11,7 @@
     RootModule        = 'ZENworksBundleManagement.psm1'
     
     # Version number of this module.
-    ModuleVersion     = '0.1.0.0'
+    ModuleVersion     = '0.1.0.1'
     
     # ID used to uniquely identify this module
     GUID              = '2e51d42e-50a0-4e52-9278-5eb19d0ca631'
@@ -45,6 +45,14 @@
         'New-ZENworksBundleRegistryEditAction',
         'New-ZENworksBundleServiceAction',
         'New-ZENworksBundleStopProcessAction',
+        'New-ZENworksBundleArchitectureRequirement',
+        'New-ZENworksBundleFileExistsRequirement',
+        'New-ZENworksBundleProcessRunningRequirement',
+        'New-ZENworksBundleRegistryKeyExistsRequirement',
+        'New-ZENworksBundleRegistryKeyValueExistsRequirement',
+        'New-ZENworksBundleRegistryKeyValueRequirement',
+        'New-ZENworksBundleServiceExistsRequirement',
+        'New-ZENworksBundleServiceRunningRequirement',        
         'Remove-ZENworksBundleAction'
     )
 

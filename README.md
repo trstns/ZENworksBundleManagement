@@ -12,7 +12,6 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **New-ZENworksBundle** Create a new ZENworks bundle
 * **New-ZENworksBundleAssignment** Assign a bundle to a device or devices
 * **New-ZENworksBundleRequirements** Create a bundle requirements object containing groups or requirement filters.
-* **New-ZENworksBundleRequirementsFilter** Create a requirement filter.
 * **New-ZENworksBundleRequirementsGroup** Create a group of requirement filters.
 * **New-ZENworksBundleFileRemovalAction** Create an action to remove files on target devices.
 * **New-ZENworksBundleInstallBundleAction** Create an action to install a bundle on target devices.
@@ -23,6 +22,14 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **New-ZENworksBundleRegistryEditAction** Create an action to create or update registry values on target devices.
 * **New-ZENworksBundleServiceAction** Create an action to start or stop a service on target devices.
 * **New-ZENworksBundleStopProcessAction** Create an action to stop a running process on target devices.
+* **New-ZENworksBundleArchitectureRequirement** Create a requirement filter to check processor architecture.
+* **New-ZENworksBundleFileExistsRequirement** Create a requirement filter to check if file or folder exists.
+* **New-ZENworksBundleProcessRunningRequirement** Create a requirement filter to check is process is running.
+* **New-ZENworksBundleRegistryKeyExistsRequirement** Create a requirement filter to check if registry key exists.
+* **New-ZENworksBundleRegistryKeyValueExistsRequirement** Create a requirement filter to check if registry key and value exist.
+* **New-ZENworksBundleRegistryKeyValueRequirement** Create a requirement filter to check a registry value.
+* **New-ZENworksBundleServiceExistsRequirement** Create a requirement filter to check if a service exists.
+* **New-ZENworksBundleServiceRunningRequirement** Create a requirement filter to check if a service is running.
 * **Remove-ZENworksBundleAction** Remove one or more bundle actions from an existing bundle.
 
 
@@ -52,13 +59,6 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 ### New-ZENworksBundleRequirements
 * **Conjunction** The conjunction to apply to the groups. Defaults to OR.
 * **Groups** Groups of requirement filters created with New-ZENworksBundleRequirementsGroup.
-
-### New-ZENworksBundleRequirementsFilter
-* **Type** The type of filter to use.  Currently supports 'ArchitectureReq', 'RegValueReq', 'ProcessRunningReq', 'FileExistsReq'
-* **Operator** The operator to use for comparison.  Valid options are 'Equals'. Only required when type is 'ArchitectureReq' or 'RegValueReq'.
-* **Value** The value to compare against.
-* **Name** The name of the object to compare. Only required when type is 'RegValueReq', 'ProcessRunningReq' or 'FileExistsReq'
-* **RegistryKeyName** The registry key name where 'name' is located.  Only required when type is 'RegValueReq'.
 
 ### New-ZENworksBundleRequirementsGroup
 * **Conjunction** The conjunction to use between the groups.  Defaults to AND.
@@ -139,6 +139,42 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **ContinueOnFailure** Should subsequent actions be executed if this action fails? Defaults to false.
 * **ProcessName** The name of the process to stop.
 
+### New-ZENworksBundleArchitectureRequirement
+* **Operator** The operator to use for comparison.  Valid options are 'Equals' and 'NotEquals'.
+* **Value** Valid options are '32' and '64.
+
+### New-ZENworksBundleFileExistsRequirement
+* **FileName** The full path of the file or folder to check.
+* **Value** Valid options are 'true' and 'false.
+
+### New-ZENworksBundleProcessRunningRequirement
+* **Name** The name of the process to check.
+* **Value** Valid options are 'true' and 'false.
+
+### New-ZENworksBundleRegistryKeyExistsRequirement
+* **RegistryKeyName** The registry key to check.
+* **Value** Valid options are 'true' and 'false.
+
+### New-ZENworksBundleRegistryKeyValueExistsRequirement
+* **RegistryKeyName** The registry key to check.
+* **ValueName** The name of the registry value.
+* **Value** Valid options are 'true' and 'false.
+
+### New-ZENworksBundleRegistryKeyValueRequirement
+* **RegistryKeyName** The registry key to check.
+* **ValueName** The name of the registry value.
+* **Operator** The operator to use for comparison.  Valid options are 'Equals' and 'NotEquals'.
+* **Value** The value for comparison.
+* **ValueType** The type of value that is being compared. Valid options are 'String', 'Integer' and 'Version'.
+
+### New-ZENworksBundleServiceExistsRequirement
+* **Name** The name of the service to check.
+* **Value** Valid options are 'true' and 'false.
+
+### New-ZENworksBundleServiceRunningRequirement
+* **Name** The name of the service to check.
+* **Value** Valid options are 'true' and 'false.
+
 ### Remove-ZENworksBundleAction
 * **BundleName**: The name of the bundle we are assigning to devices.
 * **BundlePath**: The path of the bundle.
@@ -153,7 +189,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 New-ZENworksBundle -Credential $ZenCredentials -Name "Install Application" -Path "Installs" -Requirements (
     New-ZENworksBundleRequirements -Groups (
         (New-ZENworksBundleRequirementsGroup -Filters (
-            (New-ZENworksBundleRequirementsFilter -Type 'ArchitectureReq' -Operator 'Equals' -Value '64')
+            (New-ZENworksBundleArchitectureRequirement -Operator 'Equals' -Value '64')
         ))
     )
 ) -Actions (
