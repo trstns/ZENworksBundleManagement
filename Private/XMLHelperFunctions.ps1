@@ -26,6 +26,12 @@ function New-XMLNode
         [Parameter(ParameterSetName = 'ParentNode')]
         [Parameter(ParameterSetName = 'TextNode')]
         [System.String]
+        $Prefix,
+
+        [Parameter(ParameterSetName = 'EmptyNode')]
+        [Parameter(ParameterSetName = 'ParentNode')]
+        [Parameter(ParameterSetName = 'TextNode')]
+        [System.String]
         $NamespaceURI,
 
         [Parameter(ParameterSetName = 'EmptyNode')]
@@ -44,11 +50,15 @@ function New-XMLNode
     )
 
     # Create empty element
-    if ($null -eq $NamespaceURI) {
-        $NewElement = $DocumentRoot.CreateElement($Name)
-
-    } else {
+    if (("" -ne $Prefix) -and ("" -ne $NamespaceURI)) {
+        Write-Verbose "Creating element $Name with prefix and namesapceuri - $Prefix - $NamespaceURI"
+        $NewElement = $DocumentRoot.CreateElement($Prefix,$Name,$NamespaceURI)
+    } elseif ("" -ne $NamespaceURI) {
+        Write-Verbose "Creating element $Name with namesapceuri"
         $NewElement = $DocumentRoot.CreateElement($Name,$NamespaceURI)
+    } else {
+        Write-Verbose "Creating element $Name"
+        $NewElement = $DocumentRoot.CreateElement($Name)
     }
 
     # Add in the attributes if provided.

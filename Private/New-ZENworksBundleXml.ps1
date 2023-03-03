@@ -213,66 +213,9 @@ function New-ZENworksBundleXml
 
         if ($null -ne $Requirements) {
             Write-Verbose "Processing Requirements"
-            #$SysReqsRootElement = $bundleXML.CreateElement("ns2", "SysReqs", "http://novell.com/zenworks/datamodel/objects/assignablecontent")
             $SysReqsRootElement = $bundleXML.CreateElement("ns2:SysReqs", "http://novell.com/zenworks/datamodel/objects/assignablecontent")
-            #[void]$bundleXML.Bundle.AppendChild($SysReqsRootElement)
             [void]$bundleXML.Bundle.InsertAfter($SysReqsRootElement, $bundleXml.Bundle.NextRevision)
-            $SysReqsElement = $bundleXML.CreateElement("ns1", "SysReqs", "http://www.novell.com/ZENworks/Reqs/v1.0")
-            $SysReqsElement.SetAttribute("Conjunction", $Requirements.Conjunction)
-            $SysReqsElement.SetAttribute("xmlns", "http://www.novell.com/ZENworks/Reqs/v1.0") # ZENworks requires this extra xmlns to work
-            [void]$SysReqsRootElement.AppendChild($SysReqsElement)
-            foreach ($Group in $Requirements.Groups) {
-                $GroupElement = $bundleXML.CreateElement("Req")
-                $GroupElement.SetAttribute("Type","GroupReq")
-                [void]$SysReqsElement.AppendChild($GroupElement)
-                $DataElement = $bundleXML.CreateElement("Data")
-                [void]$GroupElement.AppendChild($DataElement)
-                $InnerGroupElement = $bundleXML.CreateElement("ns1:GroupReq")
-                $InnerGroupElement.SetAttribute("Conjunction", $Group.Conjunction)
-                [void]$DataElement.AppendChild($InnerGroupElement)
-                foreach ($Filter in $Group.Filters) {
-                    #$FilterXML = New-ZENworksBundleRequirementFilterXml -Filter $Filter
-                    #$TempXML = [xml]$FilterXML
-                    #write-verbose $TempXML.OuterXml
-                    #[void]$InnerGroupElement.AppendChild($TempXML)
-                    #$InnerGroupElement.InnerXML += $FilterXML
-                    $ReqElement = $bundleXML.CreateElement("Req")
-                    $ReqElement.SetAttribute("Type", $Filter.Type)
-                    [void]$InnerGroupElement.AppendChild($ReqElement)
-                    $ReqDataElement = $bundleXML.CreateElement("Data")
-                    [void]$ReqElement.AppendChild($ReqDataElement)
-                    switch ($Filter.Type) {
-                        "ArchitectureReq" {
-                            $FilterElement = $bundleXML.CreateElement("ns1:ArchitectureReq")
-                            $FilterElement.SetAttribute("ValueType", "INT_TYPE")
-                            [void]$ReqDataElement.AppendChild($FilterElement)
-                            $OperatorElement = $bundleXML.CreateElement("Operator")
-                            [void]$OperatorElement.AppendChild($bundleXML.CreateTextNode($Filter.Operator))
-                            $ValueElement = $bundleXML.CreateElement("Value")
-                            [void]$ValueElement.AppendChild($bundleXML.CreateTextNode($Filter.Value))
-                            $MagnitudeElement = $bundleXML.CreateElement("Magnitude")
-                            [void]$MagnitudeElement.AppendChild($bundleXML.CreateTextNode("NONE"))
-
-                            [void]$FilterElement.AppendChild($OperatorElement)
-                            [void]$FilterElement.AppendChild($ValueElement)
-                            [void]$FilterElement.AppendChild($MagnitudeElement)
-                            break
-                        }
-                        "ProcessRunningReq" {
-                            $FilterElement = $bundleXML.CreateElement("ns1:ProcessRunningReq")
-                            [void]$ReqDataElement.AppendChild($FilterElement)
-                            $ValueElement = $bundleXML.CreateElement("Value")
-                            [void]$ValueElement.AppendChild($bundleXML.CreateTextNode($Filter.Value))
-                            $NameElement = $bundleXML.CreateElement("Name")
-                            [void]$NameElement.AppendChild($bundleXML.CreateTextNode($Filter.Name))
-                            [void]$FilterElement.AppendChild($ValueElement)
-                            [void]$FilterElement.AppendChild($NameElement)
-                            break
-                        }
-                    }
-                    [void]$ReqDataElement.AppendChild($FilterElement)
-                }
-            }
+            Add-ZENworksBundleRequirementsToXML -xmlElement $SysReqsRootElement -Requirements $Requirements
         }
 
         $GroupedActions = $Actions | Group-Object -Property ActionSet

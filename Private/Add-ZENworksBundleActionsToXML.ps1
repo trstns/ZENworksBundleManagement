@@ -1,18 +1,10 @@
 <#
     .SYNOPSIS
-        Create a string of XML defines a ZENworks bundle.
-    .PARAMETER Name
-        The name of the bundle.
-    .PARAMETER Path
-        The path where the bundle will be created.
-    .PARAMETER Description
-        The bundle description.
-    .PARAMETER AdminNotes
-        The bundle Administrator Notes.
+        Add the XML nodes required for the supplied ZENworks bundle actions.
+    .PARAMETER xmlElement
+        The XML element/node to add the new nodes to.
     .PARAMETER Requirements
-        An array of requirements objects.
-    .PARAMETER Actions
-        An array of action objects.
+        An array of action objects to be processed.
 #>
 function Add-ZENworksBundleActionsToXML
 {
@@ -32,21 +24,6 @@ function Add-ZENworksBundleActionsToXML
     $DocumentRoot = $xmlElement.OwnerDocument
     foreach ($Action in $Actions) {
         Write-Verbose "Processing Action: $($Action.Name)"
-        <#$actionElement = $DocumentRoot.CreateElement("Actions",$xmlElement.NamespaceURI)
-
-        $IdElement = $actionElement.AppendChild(
-            $DocumentRoot.CreateElement("Id",$actionElement.NamespaceURI)
-            )
-        [void]$IdElement.AppendChild($DocumentRoot.CreateTextNode("06dc060157b3c7d2f9d8655f329453d0"))
-        $NameElement = $actionElement.AppendChild(
-            $DocumentRoot.CreateElement("Name",$actionElement.NamespaceURI)
-            )
-        [void]$NameElement.AppendChild($DocumentRoot.CreateTextNode($Action.Name))
-        $TypeElement = $actionElement.AppendChild(
-            $DocumentRoot.CreateElement("Type",$actionElement.NamespaceURI)
-            )
-        [void]$TypeElement.AppendChild($DocumentRoot.CreateTextNode($Action.Type))#>
-
         $actionElement = New-XMLNode -DocumentRoot $DocumentRoot -Name "Actions" -NamespaceURI $xmlElement.NamespaceURI -Children (
             (New-XMLNode -DocumentRoot $DocumentRoot -Name "Id" -NamespaceURI $xmlElement.NamespaceURI -TextContent "06dc060157b3c7d2f9d8655f329453d0"),
             (New-XMLNode -DocumentRoot $DocumentRoot -Name "Name" -NamespaceURI $xmlElement.NamespaceURI -TextContent $Action.Name),
@@ -352,39 +329,6 @@ function Add-ZENworksBundleActionsToXML
                 } else {
                     $ServiceActionToTake = "1"
                 }
-
-                <#$DataElement = $actionElement.AppendChild(
-                    $DocumentRoot.CreateElement("Data",$actionElement.NamespaceURI)
-                    )
-                $StartStopServiceDataElement = $DataElement.AppendChild(
-                    $DocumentRoot.CreateElement("ns1:StartStopServiceData","http://www.novell.com/ZENworks/Actions/v1.0")
-                    )
-
-                $ServiceNameElement = $StartStopServiceDataElement.AppendChild(
-                    $DocumentRoot.CreateElement("ServiceName","http://www.novell.com/ZENworks/Actions/v1.0")
-                    )
-                [void]$ServiceNameElement.AppendChild($DocumentRoot.CreateTextNode($Action.ServiceName))
-                $ActionToTakeElement = $StartStopServiceDataElement.AppendChild(
-                    $DocumentRoot.CreateElement("ActionToTake","http://www.novell.com/ZENworks/Actions/v1.0")
-                    )
-                [void]$ActionToTakeElement.AppendChild($DocumentRoot.CreateTextNode($ServiceActionToTake))
-
-                $ContinueOnFailureElement = $actionElement.AppendChild(
-                    $DocumentRoot.CreateElement("ContinueOnFailure",$actionElement.NamespaceURI)
-                    )
-                [void]$ContinueOnFailureElement.AppendChild($DocumentRoot.CreateTextNode($Action.ContinueOnFailure))
-                $EnabledElement = $actionElement.AppendChild(
-                    $DocumentRoot.CreateElement("Enabled",$actionElement.NamespaceURI)
-                    )
-                [void]$EnabledElement.AppendChild($DocumentRoot.CreateTextNode("true"))
-                $reqsFailActionElement = $actionElement.AppendChild(
-                    $DocumentRoot.CreateElement("reqsFailAction",$actionElement.NamespaceURI)
-                    )
-                [void]$reqsFailActionElement.AppendChild($DocumentRoot.CreateTextNode("0"))
-                $actionUniqueIdElement = $actionElement.AppendChild(
-                    $DocumentRoot.CreateElement("actionUniqueId",$actionElement.NamespaceURI)
-                    )
-                [void]$actionUniqueIdElement.AppendChild($DocumentRoot.CreateTextNode("b28ab2b26f5d4d843f77ba52e9e1c1ae"))#>
 
                 New-XMLNode -DocumentRoot $DocumentRoot -Name "Data" -NamespaceURI $actionElement.NamespaceURI -Parent $actionElement -Children (
                     (New-XMLNode -DocumentRoot $DocumentRoot -Name "ns1:StartStopServiceData" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
