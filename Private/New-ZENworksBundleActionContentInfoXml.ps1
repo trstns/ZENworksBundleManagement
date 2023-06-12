@@ -37,12 +37,13 @@ function New-ZENworksBundleActionContentInfoXml
       $ActionContentInfoXml = [xml] $script:ZENworksBundleActionContentInfoXML
 
       foreach ($ActionSet in ("Distribute","Install","Launch")) { 
+        Write-Verbose "Processing $ActionSet actions"
         $ActionSetActions = $Actions | Where-Object -Property "ActionSet" -EQ $ActionSet
         foreach ($Action in $ActionSetActions) {
             Write-Verbose "Processing Action Content: $($Action.Name)"
             if ($Action.Type -in $script:ValidActions) {
                 if ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}) {
-                    $actionSetElement = ($ActionContentInfoXml.ActionInformation | Where-Object {$_.Actionset.Type -eq $ActionSet}).ActionSet
+                    $actionSetElement = ($ActionContentInfoXml.ActionInformation.ActionSet | Where-Object {$_.Type -eq $ActionSet})
                 } else {
                     $actionSetElement = New-XMLNode -DocumentRoot $ActionContentInfoXml -Name "ActionSet" -Attributes @{"type"=$ActionSet}
                     [void]$ActionContentInfoXml.SelectSingleNode("ActionInformation").AppendChild($actionSetElement)
