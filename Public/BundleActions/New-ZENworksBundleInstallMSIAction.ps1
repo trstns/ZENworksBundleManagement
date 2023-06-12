@@ -76,6 +76,9 @@ function New-ZENworksBundleInstallMSIAction
     begin
     {
         Write-Verbose "Starting New-ZENworksBundleInstallMSIAction function"
+        if(-not (Test-RunningAsAdmin)) {
+            throw "New-ZENworksBundleInstallFilesAction needs to be run with administrator privileges."
+        }
     }
 
     process

@@ -101,6 +101,9 @@ function New-ZENworksBundleInstallExecutableAction
     begin
     {
         Write-Verbose "Starting New-ZENworksBundleInstallExecutableAction function"
+        if(-not (Test-RunningAsAdmin)) {
+            throw "New-ZENworksBundleInstallExecutableAction needs to be run with administrator privileges."
+        }
     }
 
     process
