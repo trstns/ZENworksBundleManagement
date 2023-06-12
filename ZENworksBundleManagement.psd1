@@ -31,6 +31,7 @@
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @(
+        "Add-ZENworksBundleAction",
         'New-ZENworksBundle',
         'New-ZENworksBundleAssignment',
         'New-ZENworksBundleRequirements',
@@ -52,7 +53,8 @@
         'New-ZENworksBundleRegistryKeyValueExistsRequirement',
         'New-ZENworksBundleRegistryKeyValueRequirement',
         'New-ZENworksBundleServiceExistsRequirement',
-        'New-ZENworksBundleServiceRunningRequirement',        
+        'New-ZENworksBundleServiceRunningRequirement',
+        'Publish-ZENworksBundle',
         'Remove-ZENworksBundleAction'
     )
 

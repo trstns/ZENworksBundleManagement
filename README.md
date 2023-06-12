@@ -9,8 +9,9 @@ This module should be run with administrative privileges as ZMAN requires it for
 Drop the root folder in your PSModulePath, remove the branch name (ex. main )from the folder, and PowerShell should find the module.
 
 ## Functions
-* **New-ZENworksBundle** Create a new ZENworks bundle
-* **New-ZENworksBundleAssignment** Assign a bundle to a device or devices
+* **Add-ZENworksBundleAction** Add a new action to an existing bundle.
+* **New-ZENworksBundle** Create a new ZENworks bundle.
+* **New-ZENworksBundleAssignment** Assign a bundle to a device or devices.
 * **New-ZENworksBundleRequirements** Create a bundle requirements object containing groups or requirement filters.
 * **New-ZENworksBundleRequirementsGroup** Create a group of requirement filters.
 * **New-ZENworksBundleFileRemovalAction** Create an action to remove files on target devices.
@@ -30,8 +31,15 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **New-ZENworksBundleRegistryKeyValueRequirement** Create a requirement filter to check a registry value.
 * **New-ZENworksBundleServiceExistsRequirement** Create a requirement filter to check if a service exists.
 * **New-ZENworksBundleServiceRunningRequirement** Create a requirement filter to check if a service is running.
+* **Publish-ZENworksBundle** Publish a sandbox version of a bundle to a new version.
 * **Remove-ZENworksBundleAction** Remove one or more bundle actions from an existing bundle.
 
+
+### Add-ZENworksBundleAction
+* **Name** The name of the bundle.
+* **Path** The path where the bundle should be created.
+* **Actions** Actions to add to the bundle.
+* **Credential** Credentials to authenticate with ZENworks as an administrator.
 
 ### New-ZENworksBundle
 * **Name** The name of the bundle.
@@ -174,6 +182,15 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 ### New-ZENworksBundleServiceRunningRequirement
 * **Name** The name of the service to check.
 * **Value** Valid options are 'true' and 'false.
+
+### Publish-ZENworksBundle
+* **Name**: The name of the bundle we are assigning to devices.
+* **Path**: The path of the bundle.
+* **Force**: Also publish any sandbox-only dependent child bundles.
+* **AllChildren**: Also publish any dependent child bundles with a sandbox version.
+* **IncrementAllParents**: Increment the version of all parent bundles.
+* **ForceParents**: If you choose to increment the version of parent bundles, you must specify this option to publish any parent bundles with a sandbox version.
+* **Credential**: Credentials to authenticate with ZENworks as an administrator.
 
 ### Remove-ZENworksBundleAction
 * **BundleName**: The name of the bundle we are assigning to devices.
