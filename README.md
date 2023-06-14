@@ -12,6 +12,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **Add-ZENworksBundleAction** Add a new action to an existing bundle.
 * **Disable-ZENworksBundle** Disable ZENworks bundles.
 * **Enable-ZENworksBundle** Enable ZENworks bundles.
+* **Get-ZENworksBundle** List ZENworks bundles.
 * **New-ZENworksBundle** Create a new ZENworks bundle.
 * **New-ZENworksBundleAssignment** Assign a bundle to a device or devices.
 * **New-ZENworksBundleRequirements** Create a bundle requirements object containing groups or requirement filters.
@@ -51,6 +52,13 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 ### Enable-ZENworksBundle
 * **Name** The name(s) of the bundle(s) to enable.
 * **Path** (optional) The path of the bundle(s), if only providing the bundle name in the Name parameter.
+* **Credential** Credentials to authenticate with ZENworks as an administrator.
+
+### Get-ZENworksBundle
+* **Path** (optional) The path to start searching.
+* **Recurse** (optional) Also seach within subfolders.
+* **Filter** (optional) Filter on the bundle name. The wildcards * and ? can be used.
+* **MaxResults** (optional) The maximum number of results to return.  The default is 100.
 * **Credential** Credentials to authenticate with ZENworks as an administrator.
 
 ### New-ZENworksBundle

@@ -34,6 +34,7 @@
         "Add-ZENworksBundleAction",
         "Disableable-ZENworksBundle",
         "Enable-ZENworksBundle",
+        "Get-ZENworksBundle",
         'New-ZENworksBundle',
         'New-ZENworksBundleAssignment',
         'New-ZENworksBundleRequirements',
