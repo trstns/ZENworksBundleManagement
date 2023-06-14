@@ -10,6 +10,8 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 ## Functions
 * **Add-ZENworksBundleAction** Add a new action to an existing bundle.
+* **Disable-ZENworksBundle** Disable ZENworks bundles.
+* **Enable-ZENworksBundle** Enable ZENworks bundles.
 * **New-ZENworksBundle** Create a new ZENworks bundle.
 * **New-ZENworksBundleAssignment** Assign a bundle to a device or devices.
 * **New-ZENworksBundleRequirements** Create a bundle requirements object containing groups or requirement filters.
@@ -39,6 +41,16 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **Name** The name of the bundle.
 * **Path** The path where the bundle should be created.
 * **Actions** Actions to add to the bundle.
+* **Credential** Credentials to authenticate with ZENworks as an administrator.
+
+### Disable-ZENworksBundle
+* **Name** The name(s) of the bundle(s) to disable.
+* **Path** (optional) The path of the bundle(s), if only providing the bundle name in the Name parameter.
+* **Credential** Credentials to authenticate with ZENworks as an administrator.
+
+### Enable-ZENworksBundle
+* **Name** The name(s) of the bundle(s) to enable.
+* **Path** (optional) The path of the bundle(s), if only providing the bundle name in the Name parameter.
 * **Credential** Credentials to authenticate with ZENworks as an administrator.
 
 ### New-ZENworksBundle
