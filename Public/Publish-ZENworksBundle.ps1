@@ -16,7 +16,7 @@
     .EXAMPLE
         PS C:\>Publish-ZENworksBundle -Name "BundleName" -Path "Installs"
 
-        Publish the sandbox of a bundle names "BundleName" to a new version.
+        Publish the sandbox of a bundle named "BundleName" to a new version.
     .NOTES
         
 #>
