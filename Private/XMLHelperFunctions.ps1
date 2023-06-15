@@ -51,10 +51,10 @@ function New-XMLNode
 
     # Create empty element
     if (("" -ne $Prefix) -and ("" -ne $NamespaceURI)) {
-        Write-Verbose "Creating element $Name with prefix and namesapceuri - $Prefix - $NamespaceURI"
+        Write-Verbose "Creating element $Name with prefix and namespaceuri - $Prefix - $NamespaceURI"
         $NewElement = $DocumentRoot.CreateElement($Prefix,$Name,$NamespaceURI)
     } elseif ("" -ne $NamespaceURI) {
-        Write-Verbose "Creating element $Name with namesapceuri"
+        Write-Verbose "Creating element $Name with namespaceuri"
         $NewElement = $DocumentRoot.CreateElement($Name,$NamespaceURI)
     } else {
         Write-Verbose "Creating element $Name"
