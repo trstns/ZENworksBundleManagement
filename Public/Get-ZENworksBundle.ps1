@@ -5,6 +5,8 @@
         The location to retrieve bundles from.
     .PARAMETER Recurse
         Also search within subfolders.
+    .PARAMETER Count
+        Only return the number of bundles found.
     .PARAMETER Filter
         Filter on the bundle name. The wildcards * and ? can be used.
     .PARAMETER MaxResults
@@ -40,6 +42,10 @@ function Get-ZENworksBundle
         $Recurse,
 
         [Parameter()]
+        [Switch]
+        $Count,
+
+        [Parameter()]
         [System.String]
         $Filter,
 
@@ -67,6 +73,9 @@ function Get-ZENworksBundle
         if ($Recurse) {
             $ZMANParams += "--recursive"
         }
+        if ($Count) {
+            $ZMANParams += "--count"
+        }
         if ($Filter) {
             $ZMANParams += "--namefilter=$Filter"
         }
@@ -76,6 +85,13 @@ function Get-ZENworksBundle
         }
 
         Write-Verbose "Launching ZMAN with params: $ZMANParams"
-        Invoke-ZMAN -Command "bundle-list" -CommandOptions $ZMANParams -ZenCredential $Credential
+        $ZMANResult = Invoke-ZMAN -Command "bundle-list" -CommandOptions $ZMANParams -ZenCredential $Credential
+
+        # ZMAN will return a string "No results found" if there are zero results.  Return an empty array instead.
+        if ($ZMANResult -eq "No results found") {
+            @()
+        } else {
+            $ZMANResult
+        }
     }
 }
