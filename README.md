@@ -35,6 +35,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **New-ZENworksBundleServiceExistsRequirement** Create a requirement filter to check if a service exists.
 * **New-ZENworksBundleServiceRunningRequirement** Create a requirement filter to check if a service is running.
 * **Publish-ZENworksBundle** Publish a sandbox version of a bundle to a new version.
+* **Remove-ZENworksBundle** Remove one or more bundles.
 * **Remove-ZENworksBundleAction** Remove one or more bundle actions from an existing bundle.
 
 
@@ -210,6 +211,12 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **AllChildren**: Also publish any dependent child bundles with a sandbox version.
 * **IncrementAllParents**: Increment the version of all parent bundles.
 * **ForceParents**: If you choose to increment the version of parent bundles, you must specify this option to publish any parent bundles with a sandbox version.
+* **Credential**: Credentials to authenticate with ZENworks as an administrator.
+
+### Remove-ZENworksBundle
+* **Name**: The name(s) of the bundles to remove (can be an array of names).
+* **Path**: (optional) The path to prepend to the bundles specified in the names parameter.
+* **Recurse**: (optional) Look in subfolders for bundles to delete.
 * **Credential**: Credentials to authenticate with ZENworks as an administrator.
 
 ### Remove-ZENworksBundleAction

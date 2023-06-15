@@ -58,6 +58,7 @@
         'New-ZENworksBundleServiceExistsRequirement',
         'New-ZENworksBundleServiceRunningRequirement',
         'Publish-ZENworksBundle',
+        'Remove-ZENworksBundle',
         'Remove-ZENworksBundleAction'
     )
 
