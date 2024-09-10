@@ -52,7 +52,7 @@ function Add-ZENworksBundleActionsToXML
                     ))
                 )
 
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent ""))
@@ -80,7 +80,7 @@ function Add-ZENworksBundleActionsToXML
                 $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "ImpersonateCopy" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Parent $InstallFileDataElement -TextContent "SYSTEM"
                 $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "CreateAsSingleContent" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Parent $InstallFileDataElement -TextContent "false"
 
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent ""))
@@ -96,7 +96,7 @@ function Add-ZENworksBundleActionsToXML
                     ))
                 )
 
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
 
                 break
@@ -111,7 +111,7 @@ function Add-ZENworksBundleActionsToXML
                 )
 
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "LinkedObjectIDs" -NamespaceURI $actionElement.NamespaceURI -TextContent ""))
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent ""))
@@ -127,7 +127,7 @@ function Add-ZENworksBundleActionsToXML
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "WindowAction" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "NORMAL"),
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "ElevateUserAsAdmin" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "false")
                         )),
-                        (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitForExit" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $Action.WaitForExit),
+                        (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitForExit" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $Action.WaitForExit.ToString().ToLower()),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitTimeout" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "0"),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "TerminateAfterTimeout" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "false"),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "CommandLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $Action.CommandLineParameters),
@@ -145,7 +145,7 @@ function Add-ZENworksBundleActionsToXML
                     ))
                 )
 
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent "b28ab2b26f5d4d843f77ba52e9e1c1ae"))
@@ -154,14 +154,14 @@ function Add-ZENworksBundleActionsToXML
             }
             "Install Executable" {
                 $DataElement = New-XMLNode -DocumentRoot $DocumentRoot -Name "Data" -NamespaceURI $actionElement.NamespaceURI -Parent $actionElement -Children (
-                    (New-XMLNode -DocumentRoot $DocumentRoot -Name "ns1:InstallExeActionData" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Attributes @{"FileName"=$Action.FileName} -Children (
+                    (New-XMLNode -DocumentRoot $DocumentRoot -Name "ns1:InstallExeActionData" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Attributes @{"FileName"=$(Split-Path -Path $Action.FileName -Leaf)} -Children (
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "Impersonate" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "Impersonation" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $Action.Impersonate),
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "WindowAction" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "NORMAL"),
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "ElevateUserAsAdmin" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "false")
                         )),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitForAction" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
-                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitForExit" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $Action.WaitForExit),
+                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitForExit" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $Action.WaitForExit.ToString().ToLower()),
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "WaitTimeout" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "0"),
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "TerminateAfterTimeout" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "false")
                         )),
@@ -179,7 +179,7 @@ function Add-ZENworksBundleActionsToXML
                     ))
                 )
 
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent "b28ab2b26f5d4d843f77ba52e9e1c1ae"))
@@ -315,7 +315,7 @@ function Add-ZENworksBundleActionsToXML
                 $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "BackupOption" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0/RegistryEdit" -Parent $RegistryEditDataElement -TextContent "false"
                 $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "HkcuOption" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0/RegistryEdit" -Parent $RegistryEditDataElement -TextContent $HKCUOption
                 $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "ResolveEnvRegEditValInUC" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0/RegistryEdit" -Parent $RegistryEditDataElement -TextContent "false"
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Properties" -NamespaceURI $actionElement.NamespaceURI -TextContent "Impersonation=SYSTEM;"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
@@ -336,7 +336,7 @@ function Add-ZENworksBundleActionsToXML
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "ActionToTake" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent $ServiceActionToTake)
                     ))
                 )
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent "b28ab2b26f5d4d843f77ba52e9e1c1ae"))
@@ -350,7 +350,7 @@ function Add-ZENworksBundleActionsToXML
                     ))
                 )
 
-                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure))
+                [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "ContinueOnFailure" -NamespaceURI $actionElement.NamespaceURI -TextContent $Action.ContinueOnFailure.ToString().ToLower()))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "Enabled" -NamespaceURI $actionElement.NamespaceURI -TextContent "true"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "reqsFailAction" -NamespaceURI $actionElement.NamespaceURI -TextContent "0"))
                 [void]$actionElement.AppendChild((New-XMLNode -DocumentRoot $DocumentRoot -Name "actionUniqueId" -NamespaceURI $actionElement.NamespaceURI -TextContent "b28ab2b26f5d4d843f77ba52e9e1c1ae"))
