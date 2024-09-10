@@ -40,8 +40,8 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 
 
 ### Add-ZENworksBundleAction
-* **Name** The name of the bundle.
-* **Path** The path where the bundle should be created.
+* **BundleName** The name of the bundle.
+* **BundlePath** The path where the bundle should be created.
 * **Actions** Actions to add to the bundle.
 * **Credential** Credentials to authenticate with ZENworks as an administrator.
 
@@ -205,8 +205,8 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **Value** Valid options are 'true' and 'false.
 
 ### Publish-ZENworksBundle
-* **Name**: The name of the bundle we are assigning to devices.
-* **Path**: The path of the bundle.
+* **BundleName**: The name of the bundle we are assigning to devices.
+* **BundlePath**: The path of the bundle.
 * **Force**: Also publish any sandbox-only dependent child bundles.
 * **AllChildren**: Also publish any dependent child bundles with a sandbox version.
 * **IncrementAllParents**: Increment the version of all parent bundles.

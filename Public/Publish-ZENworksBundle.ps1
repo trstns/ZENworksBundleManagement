@@ -1,9 +1,9 @@
 <#
     .SYNOPSIS
         Published a sandboxed ZENworks bundle.
-    .PARAMETER Name
+    .PARAMETER BundleName
         The name of the new bundle.
-    .PARAMETER Path
+    .PARAMETER BundlePath
         The location under /Bundles to place the new bundle.
     .PARAMETER Force
         If a primary bundle has dependent child bundles with the sandbox only version, you must specify this option to publish the changes made both to the primary and the dependent bundles. If you do not specify this option, the publish of the primary bundle also fails.
@@ -29,11 +29,11 @@ function Publish-ZENworksBundle
     (
         [Parameter(Mandatory = $true)]
         [System.String]
-        $Name,
+        $BundleName,
 
         [Parameter(Mandatory = $true)]
         [System.String]
-        $Path,
+        $BundlePath,
 
         [Parameter()]
         [System.Boolean]
@@ -59,9 +59,9 @@ function Publish-ZENworksBundle
     begin
     {
         # Remove leading slashes and 'Bundles' from the bundle path
-        $CleanBundlePath = $Path -Replace "^[\/]?(Bundles)?[\/]?","" 
+        $CleanBundlePath = $BundlePath -Replace "^[\/]?(Bundles)?[\/]?","" 
         # Create properly formatted bundle path
-        $FullBundlePath = "/Bundles/{0}/{1}" -f $CleanBundlePath,$Name
+        $FullBundlePath = "/Bundles/{0}/{1}" -f $CleanBundlePath,$BundleName
     }
     process
     {

@@ -1,18 +1,18 @@
 <#
     .SYNOPSIS
         Add new actions to an existing ZENworks Bundle.
-    .PARAMETER Name
-        The name of the new bundle.
-    .PARAMETER Path
-        The location under /Bundles to place the new bundle.
+    .PARAMETER BundleName
+        The name of the bundle.
+    .PARAMETER BundlePath
+        The location under /Bundles of the bundle.
     .PARAMETER Actions
         An array of actions to add to the bundle.
     .EXAMPLE
-        PS C:\>Add-ZENworksBundleAction -Name "BundleName" -Path "Installs" -Actions $Action1
+        PS C:\>Add-ZENworksBundleAction -BundleName "BundleName" -BundlePath "Installs" -Actions $Action1
 
         This example creates a new bundle called BundleName in /Bundles/Installs with a single action defined in the $Action1 variable.
     .EXAMPLE
-          Add-ZENworksBundleAction -Name "Mozilla Firefox ESR - Update" -Path "Installs/Automated" -Description "" -Actions (
+          Add-ZENworksBundleAction -BundleName "Mozilla Firefox ESR - Update" -BundlePath "Installs/Automated" -Description "" -Actions (
             (New-ZENworksBundleInstallMSIAction -Name "Install Application MSI" -ActionSet "Install" -FileName "C:\Application.msi")
           )
 
@@ -39,11 +39,11 @@ function Add-ZENworksBundleAction
     (
         [Parameter(Mandatory = $true)]
         [System.String]
-        $Name,
+        $BundleName,
 
         [Parameter(Mandatory = $true)]
         [System.String]
-        $Path,
+        $BundlePath,
 
         [Parameter(Mandatory = $true)]
         [Object[]]
@@ -57,9 +57,9 @@ function Add-ZENworksBundleAction
     begin
     {
         # Remove leading slashes and 'Bundles' from the bundle path
-        $CleanBundlePath = $Path -Replace "^[\/]?(Bundles)?[\/]?","" 
+        $CleanBundlePath = $BundlePath -Replace "^[\/]?(Bundles)?[\/]?","" 
         # Create properly formatted bundle path
-        $FullBundlePath = "/Bundles/{0}/{1}" -f $CleanBundlePath,$Name
+        $FullBundlePath = "/Bundles/{0}/{1}" -f $CleanBundlePath,$BundleName
     }
     process
     {
