@@ -65,6 +65,18 @@ function Add-ZENworksBundleRequirementsToXML
                         ))
                     )
                 }
+                "FileVersionReq" {
+                    $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "Req" -Attributes @{"Type"=$Filter.Type} -Parent $GroupReqElement -Children (
+                        (New-XMLNode -DocumentRoot $DocumentRoot -Name "Data" -Children (
+                            (New-XMLNode -DocumentRoot $DocumentRoot -Name $Filter.Type -Prefix "ns1" -NamespaceURI $GroupReqElement.NamespaceURI -Attributes @{"ValueType"="STRING_TYPE"} -Children (
+                                (New-XMLNode -DocumentRoot $DocumentRoot -Name "Operator" -TextContent $Filter.Operator),
+                                (New-XMLNode -DocumentRoot $DocumentRoot -Name "Value" -TextContent $Filter.Value),
+                                (New-XMLNode -DocumentRoot $DocumentRoot -Name "Magnitude" -TextContent "NONE"),
+                                (New-XMLNode -DocumentRoot $DocumentRoot -Name "FileName" -TextContent $Filter.FileName)
+                            ))
+                        ))
+                    )
+                }
                 {"ProcessRunningReq", "FileExistsReq", "ServiceExistsReq", "ServiceRunningReq", "RegKeyExistsReq" -eq $_} {
                     $null = New-XMLNode -DocumentRoot $DocumentRoot -Name "Req" -Attributes @{"Type"=$Filter.Type} -Parent $GroupReqElement -Children (
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "Data" -Children (
