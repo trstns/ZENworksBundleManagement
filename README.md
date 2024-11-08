@@ -37,6 +37,7 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **Publish-ZENworksBundle** Publish a sandbox version of a bundle to a new version.
 * **Remove-ZENworksBundle** Remove one or more bundles.
 * **Remove-ZENworksBundleAction** Remove one or more bundle actions from an existing bundle.
+* **Remove-ZENworksBundleVersion** Remove one or more versions from an existing bundle.
 
 
 ### Add-ZENworksBundleAction
@@ -225,6 +226,15 @@ Drop the root folder in your PSModulePath, remove the branch name (ex. main )fro
 * **ActionSet**: The action set containing the action(s) to remove.
 * **ActionPositions**: The positions of the action(s) to remove.
 * **Credential**: Credentials to authenticate with ZENworks as an administrator.
+
+### Remove-ZENworksBundleVersion
+* **BundleName**: The name of the bundle we are assigning to devices.
+* **BundlePath**: The path of the bundle.
+* **All**: Remove all older versions.
+* **Previous**: Remove all versions older than this version.
+* **Version**: Remove just this version.
+* **Credential**: Credentials to authenticate with ZENworks as an administrator.
+
 
 ## Examples
 
