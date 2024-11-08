@@ -4,7 +4,7 @@
     .PARAMETER Name
         The name(s) of the new bundle(s) to remove.
     .PARAMETER Path
-        The location under /Bundles to place the new bundle.
+        The location under /Bundles where the bundle(s) are located.
     .PARAMETER Recurse
         Also look in subfolders for bundles to delete.
     .EXAMPLE
@@ -54,6 +54,7 @@ function Remove-ZENworksBundle
             # Create properly formatted bundle path
             $FullBundlePath = "/Bundles/{0}" -f $CleanBundlePath
         } else {
+            # If a path has not been provided, we assume that all supplied names include the full path
             $Name = $Name | ForEach-Object {
                 $CleanPath = $_ -Replace "^[\/]?(Bundles)?[\/]?",""
                 "/Bundles/{0}" -f $CleanPath
