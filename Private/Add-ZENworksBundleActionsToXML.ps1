@@ -33,16 +33,36 @@ function Add-ZENworksBundleActionsToXML
 
         switch ($Action.Type) {
             "Install MSI Action" {
+                $FileName = $Action.FileName | Split-Path -Leaf # Extract just the filename from the full path. 
+                $RestartOption = switch ($Action.RestartOption) {
+                    "None" {""}
+                    "NoRestart" {"/norestart"}
+                    "PromptRestart" {"/promptrestart"}
+                    "ForceRestart" {"/forcerestart"}
+                }
+                $DisplayOption = switch ($Action.DisplayOption) {
+                    "NoUI" {"/qn"}
+                    "FullUI" {"/qf"}
+                    "ReducedUI" {"/qr"}
+                    "BasicUI" {"/qb"}
+                    "UnattendedMode" {"/passive"}
+                }
+                $InstallOption = switch ($Action.InstallOption) {
+                    "Install" {"/i"}
+                    "AdminInstall" {"/a"}
+                    "AdvertiseAllUsers" {"/jm"}
+                    "AdvertiseCurrentUser" {"/ju"}
+                }
                 $DataElement = New-XMLNode -DocumentRoot $DocumentRoot -Name "Data" -NamespaceURI $actionElement.NamespaceURI -Parent $actionElement -Children (
-                    (New-XMLNode -DocumentRoot $DocumentRoot -Name "ns1:MSIData" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Attributes @{"FileName"=$Action.FileName;"Locale"="someLocale";"NetworkInstall"="false";"PackageName"="somePackageName";"Vendor"="someVendor";"Version"="someVersion"} -Children (
+                    (New-XMLNode -DocumentRoot $DocumentRoot -Name "ns1:MSIData" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Attributes @{"FileName"=$FileName;"Locale"="someLocale";"NetworkInstall"="false";"PackageName"="somePackageName";"Vendor"="someVendor";"Version"="someVersion"} -Children (
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "Install" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
-                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "CmdLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent (" /i ""{0}"" {1} /qn" -f $Action.FileName, $Action.InstallParameters))
+                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "CmdLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent (" {0} ""{1}"" {2} {3} {4}" -f $InstallOption, $FileName, $Action.InstallParameters, $DisplayOption, $RestartOption))
                         )),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "Repair" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
-                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "CmdLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent (" /f ""{0}"" /qn" -f $Action.FileName))
+                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "CmdLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent (" /f ""{0}"" {1} {2}" -f $FileName, $DisplayOption, $RestartOption))
                         )),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "Uninstall" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
-                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "CmdLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent (" /x ""{0}"" /qn" -f $Action.FileName))
+                            (New-XMLNode -DocumentRoot $DocumentRoot -Name "CmdLine" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent (" /x ""{0}"" {1} {2}" -f $FileName, $DisplayOption, $RestartOption))
                         )),
                         (New-XMLNode -DocumentRoot $DocumentRoot -Name "Impersonate" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -Children (
                             (New-XMLNode -DocumentRoot $DocumentRoot -Name "Impersonation" -NamespaceURI "http://www.novell.com/ZENworks/Actions/v1.0" -TextContent "SYSTEM"),

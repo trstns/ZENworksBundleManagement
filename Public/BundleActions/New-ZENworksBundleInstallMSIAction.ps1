@@ -37,6 +37,9 @@ class InstallMSIAction {
     [boolean]$ContinueOnFailure = $false
     [string]$FileName
     [string]$InstallParameters
+    [string]$RestartOption
+    [string]$DisplayOption
+    [string]$InstallOption
     [boolean]$IncludeAllFilesinFolder
     [boolean]$IncludeAllFilesinSubFolders
 }
@@ -67,6 +70,21 @@ function New-ZENworksBundleInstallMSIAction
         [System.String]
         $InstallParameters,
 
+        [Parameter()]
+        [ValidateSet('None','NoRestart','PromptRestart','ForceRestart')]
+        [System.String]
+        $RestartOption = "None",
+
+        [Parameter()]
+        [ValidateSet('NoUI','FullUI','ReducedUI','BasicUI','UnattendedMode')]
+        [System.String]
+        $DisplayOption = "NoUI",
+
+        [Parameter()]
+        [ValidateSet('Install','AdminInstall','AdvertiseAllUsers','AdvertiseCurrentUser')]
+        [System.String]
+        $InstallOption = "Install",
+
         [System.Boolean]
         $IncludeAllFilesinFolder = $false,
 
@@ -90,6 +108,9 @@ function New-ZENworksBundleInstallMSIAction
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
         $BundleAction.FileName = $FileName
         $BundleAction.InstallParameters = $InstallParameters
+        $BundleAction.RestartOption = $RestartOption
+        $BundleAction.DisplayOption = $DisplayOption
+        $BundleAction.InstallOption = $InstallOption
         $BundleAction.IncludeAllFilesinFolder = $IncludeAllFilesinFolder
         $BundleAction.IncludeAllFilesinSubFolders = $IncludeAllFilesinSubFolders
 
