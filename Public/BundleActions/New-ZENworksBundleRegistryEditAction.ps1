@@ -96,7 +96,7 @@ function New-ZENworksBundleRegistryEditAction
         $BundleAction.Name = $Name
         $BundleAction.ActionSet = $ActionSet
         $BundleAction.ContinueOnFailure = $ContinueOnFailure
-        $BundleAction.RegistryEntries = $RegistryEntries
+        $BundleAction.RegistryEntries = @(,$RegistryEntries) # Force PowerShell to pass through a nested array if there is only one element.
         $BundleAction.HKCUOption = $HKCUOption
 
         return $BundleAction

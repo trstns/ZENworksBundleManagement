@@ -199,10 +199,10 @@ function Add-ZENworksBundleActionsToXML
                 # Loop through all of the registry keys/values
                 $KeyReg = @() # Array to keep track of which keys we have already created
                 foreach ($Entry in $Action.RegistryEntries) {
-                    $KeyName = $Entry[0]
-                    $ValueName = $Entry[1]
-                    $ValueType = $Entry[2]
-                    $Value = $Entry[3]
+                    $KeyName = [string]$Entry[0]
+                    $ValueName = [string]$Entry[1]
+                    $ValueType = [string]$Entry[2]
+                    $Value = [string]$Entry[3]
 
                     # Make sure the value types have the correct case - if the type isn't valid, set to $null
                     switch ($ValueType) {
